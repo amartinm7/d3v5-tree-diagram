@@ -32,9 +32,9 @@ export default {
   mounted() {
     const nodes = [ {id: 'ABC', group: 1, level: 1, value:50}, {id:'XYZ', group: 2, level: 1, value:100}, ]
     const json = {'nodes':[
-        {'y':60, 'x':100, 'r':20, 'label':'Node 1', 'color': 'red'},
-        {'y':60, 'x':200, 'r':25, 'label':'Node 2', 'color': 'blue'},
-        {'y':60, 'x':300, 'r':30, 'label':'Node 3', 'color': 'green'}
+        {'y':60, 'x':100, 'r':20, 'label':'Node 1', 'color': 'red', 'parent':{'x':0,'y':0}},
+        {'y':60, 'x':200, 'r':25, 'label':'Node 2', 'color': 'blue', 'parent':{'x':100,'y':60}},
+        {'y':60, 'x':300, 'r':30, 'label':'Node 3', 'color': 'green', 'parent':{'x':200,'y':60}},
       ]};
 
     console.log('mounted...')
@@ -57,6 +57,14 @@ export default {
       .attr('x', function(d) { return (0 - d.label.length * 3) - 1 })
       .attr('y', 4)
       .text(function(d) { return d.label })
+    nodeEnter.append('path')
+      .attr('class', 'link')
+      .attr('d', function(d) {
+        return 'M' + d.x + ',' + d.y
+          + 'C' + d.x + ',' + (d.y + d.parent.y) / 2
+          + ' ' + d.parent.x + ',' +  (d.y + d.parent.y) / 2
+          + ' ' + d.parent.x + ',' + d.parent.y
+      })
   }
 }
 </script>
