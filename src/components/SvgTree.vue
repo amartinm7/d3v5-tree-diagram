@@ -57,6 +57,11 @@ export default {
       .attr('x', function(d) { return (0 - d.label.length * 3) - 1 })
       .attr('y', 4)
       .text(function(d) { return d.label })
+
+    // paths are created in another way
+    // I have to create a new data and do it from this data
+    // the path belong to a first g node without any circle child
+    // https://bl.ocks.org/d3noob/b024fcce8b4b9264011a1c3e7c7d70dc
     nodeEnter.append('path')
       .attr('class', 'link')
       .attr('d', function(d) {
