@@ -1,4 +1,11 @@
 # d3v5-tree-diagram
+![tree-diagram](./_media/tree-diagram.png)
+
+### References
+Three Little Circles
+
+Once upon a time, there were three little circles.
+https://bost.ocks.org/mike/circles/
 
 ## Project setup
 ```
