@@ -1,5 +1,5 @@
 # d3v5-tree-diagram
-![tree-diagram](./_media/tree-diagram.png)
+![tree-diagram](./_media/tree-diagram-d3js-v5.png)
 
 ### References
 Three Little Circles
@@ -35,3 +35,5 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+
+![tree-diagram](./_media/tree-diagram.png)
