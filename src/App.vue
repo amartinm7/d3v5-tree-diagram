@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <svg-tree msg="Welcome to Your Vue.js App"/>
+    <svg-tree msg="Welcome"/>
   </div>
 </template>
 
 <script>
 import SvgTree from './components/SvgTree.vue'
-
 export default {
   name: 'app',
   components: {
     SvgTree
+  },
+  mounted: function () {
   }
 }
 </script>

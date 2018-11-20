@@ -1,90 +1,41 @@
 <template>
-  <div>
-    Hello??
+  <div class="hello" id="mySvgTree">
     <h1>{{ msg }}</h1>
-    <div class="svgTree">
-    </div>
+
   </div>
 </template>
 
 <script>
-import * as d3 from 'd3'
+import horizontalTreeDiagram from '../services/horizontalTreeDiagram'
+
 export default {
-  name: 'Svgtree',
-  props: [
-    'msg'
-  ],
-  data() {
-    return {
-      property: 'Blank'
-    }
+  name: 'SvgTree',
+  props: {
+    msg: String
   },
-  computed: {
-    propertyComputed() {
-      console.log('I change when this.property changes.')
-      return this.property
-    }
-  },
-  created() {
-    this.property = 'Example property update.'
-    console.log('propertyComputed will update, as this.property is now reactive.')
-  },
-  mounted() {
-    const nodes = [ {id: 'ABC', group: 1, level: 1, value:50}, {id:'XYZ', group: 2, level: 1, value:100}, ]
-    const json = {'nodes':[
-        {'y':60, 'x':100, 'r':20, 'label':'Node 1', 'color': 'red', 'parent':{'x':0,'y':0}},
-        {'y':60, 'x':200, 'r':25, 'label':'Node 2', 'color': 'blue', 'parent':{'x':100,'y':60}},
-        {'y':60, 'x':300, 'r':30, 'label':'Node 3', 'color': 'green', 'parent':{'x':200,'y':60}},
-      ]};
-
-    console.log('mounted...')
-    const svg = d3.select('.svgTree').append('svg').attr('width','960').attr('height','500')
-    const node = svg.selectAll('g.mynode').data(json.nodes)
-
-    const nodeEnter = node.enter().append('g')
-      .attr('class', 'mynode')
-      .attr('transform', function(d) {
-        return `translate(${d.y}, ${d.x})` })
-
-    console.log(`${JSON.stringify(node)}`)
-
-    nodeEnter.append('circle')
-      .attr('r', function(d) { return d.r })
-      .attr('style', 'fill: steelblue; stroke: lightblue;')
-      .attr('dx', function(d) { return d.x })
-      .attr('dy', function(d) { return d.y })
-    nodeEnter.append('text')
-      .attr('x', function(d) { return (0 - d.label.length * 3) - 1 })
-      .attr('y', 4)
-      .text(function(d) { return d.label })
-
-    // paths are created in another way
-    // I have to create a new data and do it from this data
-    // the path belong to a first g node without any circle child
-    // https://bl.ocks.org/d3noob/b024fcce8b4b9264011a1c3e7c7d70dc
-    nodeEnter.append('path')
-      .attr('class', 'link')
-      .attr('d', function(d) {
-        return 'M' + d.x + ',' + d.y
-          + 'C' + d.x + ',' + (d.y + d.parent.y) / 2
-          + ' ' + d.parent.x + ',' +  (d.y + d.parent.y) / 2
-          + ' ' + d.parent.x + ',' + d.parent.y
-      })
+  mounted: function () {
+    horizontalTreeDiagram.draw()
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  .mynode circle {
+  .node circle {
     fill: #fff;
     stroke: steelblue;
     stroke-width: 3px;
   }
-  .mynode text { font: 12px sans-serif; }
+
+  .node text { font: 12px sans-serif; }
+
+  .node--internal text {
+    text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+  }
+
   .link {
     fill: none;
     stroke: #ccc;
     stroke-width: 2px;
   }
+
 </style>
