@@ -1,6 +1,8 @@
 # d3v5-tree-diagram
 ![tree-diagram](./_media/tree-diagram-d3js-v5.png)
 
+The main goal is read the package.json file of the project and draw the dependencies as a tree.
+
 ### References
 Three Little Circles
 
